@@ -1,5 +1,5 @@
 class Repos {
-  String? name, html_url;
+  late String name, html_url;
 
   Repos({
     required this.name,

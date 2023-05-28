@@ -17,16 +17,20 @@ class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
 
-    // final userNameController = TextEditingController();
-    //
-    // final model = context.watch<UserProvider>();
-    //
-    // Future<void> fetchUserInfo() async {
-    //
-    //   await context.read<UserProvider>().getUser(
-    //       username: userNameController.text,
-    //       ctx: context);
-    // }
+    final userNameController = TextEditingController();
+
+    final model = context.watch<UserProvider>();
+
+    Future<void> fetchUserInfo() async {
+
+      await context.read<UserProvider>().getUser(
+          username: userNameController.text,
+          ctx: context);
+
+      await context.read<UserProvider>().getUserRepo(
+          username: userNameController.text,
+          ctx: context);
+    }
 
     // TODO: implement build
     double screenWidth = MediaQuery.of(context).size.width;
@@ -88,14 +92,14 @@ class _DashboardState extends State<Dashboard> {
                     ),
                   ),
 
-                  // SizedBox(width: 10,),
+                  SizedBox(width: 10,),
 
-                  // model.isLoading?Center(
-                  //   child: CircularProgressIndicator(
-                  //     backgroundColor: Colors.white,
-                  //   ),
-                  // )
-                  //     : const SizedBox.shrink(),
+                  model.isLoading?Center(
+                    child: CircularProgressIndicator(
+                      backgroundColor: Colors.white,
+                    ),
+                  )
+                      : const SizedBox.shrink(),
 
                   SizedBox(height: 20,),
 
@@ -103,11 +107,11 @@ class _DashboardState extends State<Dashboard> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
                     child: TextField(
-                      // controller: userNameController,
-                      // onSubmitted: (value) {
-                      //   fetchUserInfo();
+                      controller: userNameController,
+                      onSubmitted: (value) {
+                        fetchUserInfo();
                         // Navigator.push(context, MaterialPageRoute(builder: (context) => UserDetailScreen()));
-                      // },
+                      },
 
                       style: TextStyle(color: Color(0xFFd5d5e0)),
                       decoration: InputDecoration(
@@ -128,6 +132,7 @@ class _DashboardState extends State<Dashboard> {
 
                     ),
                   ),
+
 
                   SizedBox(height: 40,),
 

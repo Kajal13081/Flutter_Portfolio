@@ -55,7 +55,7 @@ class _ExampleState extends State<Example> {
     Dashboard(),
     WorkExperience(),
     Project(),
-    HomeScreen(),
+    WorkExperience(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -139,7 +139,7 @@ class _ExampleState extends State<Example> {
         body: Center(child: screens.elementAt(_index)),
 
 
-    ),
+      ),
 
 
     );

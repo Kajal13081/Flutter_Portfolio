@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:portfolio_app/app/data/models/repos.dart';
 import 'package:portfolio_app/app/data/models/user_profile.dart';
+import 'package:portfolio_app/app/routes/app_routes.dart';
 import 'package:portfolio_app/notifier/user_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -14,6 +16,7 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
   Widget build(BuildContext context) {
 
     final userInfo = context.watch<UserProvider>().user;
+    final List<Repos> reposInfo = context.watch<UserProvider>().repos;
     // TODO: implement build
     // throw UnimplementedError();
     return SafeArea(
@@ -56,11 +59,12 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
             child: Center(
               child: ClipRRect(
                   borderRadius: BorderRadius.circular(50.0),
-                  child: Image.asset(
-                    userInfo.avatar_url!,
-                    height: 80,
-                    width: 80,
-                  )),
+                    child: Image.network(
+                      userInfo.avatar_url,
+                      height: 80,
+                      width: 80,
+                    ),
+                  ),
             ),
           ),
           SizedBox(
@@ -70,7 +74,7 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
           ListTile(
             title: Padding(
               padding: const EdgeInsets.fromLTRB(0,0,0,8),
-              child: Text(userInfo.name!,
+              child: Text(userInfo.name ?? "",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Color(0xFFf2f2fa),
@@ -80,7 +84,7 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                 ),
               ),
             ),
-            subtitle: Text(userInfo.bio!,
+            subtitle: Text(userInfo.bio ?? "",
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 16,
@@ -240,8 +244,63 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
             ),
           ),
 
+          SizedBox(height: 15,),
+
+          Expanded(
+            child: GridView.count(
+                crossAxisCount: 2,
+              // mainAxisSpacing: 20,
+              // crossAxisSpacing: 20,
+              children: reposInfo.map((item) {
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(
+                        context,
+                        AppRoutes.web_view,
+                        arguments: item.html_url
+                    );
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                    ),
+                    child: Card(
+                      elevation: 10,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12.0),
+                      ),
+                      color: Color(0xFF232336),
+                      margin: EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 20),
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(10, 15, 10, 0),
+                        child: Center(
+                          child: Text(item.name,
+                          textAlign: TextAlign.center,
+                          // overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            color: Color(0xFFf2f2fa),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 18,
+                            height: 1.3,
+                            fontStyle: FontStyle.normal,
+                          ),),
+                        ),
+                      ),
+                    ),
+
+                  ),
+                );
+              }).toList(),
+            ),
+          )
+
+
+
         ],
       ),
+
+
     ));
   }
 }

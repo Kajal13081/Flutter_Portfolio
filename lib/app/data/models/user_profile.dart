@@ -1,8 +1,8 @@
 import 'package:flutter/widgets.dart';
 
 class UserProfile {
-  String? name, avatar_url, bio;
-  int? followers, following, repositories;
+  late String name, avatar_url, bio;
+  late int followers, following, repositories;
 
   UserProfile({
     required this.name,
@@ -19,7 +19,7 @@ class UserProfile {
     avatar_url = json['avatar_url'];
     followers = json['followers'];
     following = json['following'];
-    repositories = json['repositories'];
+    repositories = json['public_repos'];
   }
 
   Map<String, dynamic> toJson() {
@@ -29,7 +29,7 @@ class UserProfile {
     data['avatar_url'] = this.avatar_url;
     data['followers'] = this.followers;
     data['following'] = this.following;
-    data['repositories'] = this.repositories;
+    data['public_repos'] = this.repositories;
     return data;
   }
 }
