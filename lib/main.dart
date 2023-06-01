@@ -1,17 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:portfolio_app/app/routes/app_routes.dart';
 import 'package:portfolio_app/dashboard.dart';
+import 'package:portfolio_app/favouritesRepo.dart';
 import 'package:portfolio_app/notifier/user_provider.dart';
 import 'package:portfolio_app/project.dart';
 import 'package:portfolio_app/skills.dart';
-import 'package:portfolio_app/userProfile_demo.dart';
 import 'package:portfolio_app/user_details_screen.dart';
 import 'package:portfolio_app/work.dart';
 import 'package:provider/provider.dart';
 
-void main() {
-  runApp(const MyApp());
+const String FAVOURITES_BOX = "favourites_box";
+
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  await Hive.openBox(FAVOURITES_BOX);
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -55,7 +63,7 @@ class _ExampleState extends State<Example> {
     Dashboard(),
     WorkExperience(),
     Project(),
-    WorkExperience(),
+    FavouriteRepos(),
   ];
   @override
   Widget build(BuildContext context) {

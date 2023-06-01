@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:portfolio_app/app/data/models/repos.dart';
 import 'package:portfolio_app/app/data/models/user_profile.dart';
 import 'package:portfolio_app/app/routes/app_routes.dart';
+import 'package:portfolio_app/main.dart';
 import 'package:portfolio_app/notifier/user_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -12,6 +14,7 @@ class UserDetailScreen extends StatefulWidget {
 }
 
 class _UserDetailScreenState extends State<UserDetailScreen> {
+  Color _iconColor = Color(0xFFf2f2fa);
   @override
   Widget build(BuildContext context) {
 
@@ -275,16 +278,52 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                       child: Padding(
                         padding: const EdgeInsets.fromLTRB(10, 15, 10, 0),
                         child: Center(
-                          child: Text(item.name,
-                          textAlign: TextAlign.center,
-                          // overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            color: Color(0xFFf2f2fa),
-                            fontWeight: FontWeight.w500,
-                            fontSize: 18,
-                            height: 1.3,
-                            fontStyle: FontStyle.normal,
-                          ),),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Center(
+                                child: Text(item.name,
+                                textAlign: TextAlign.center,
+                                // overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  color: Color(0xFFf2f2fa),
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 18,
+                                  height: 1.3,
+                                  fontStyle: FontStyle.normal,
+                                ),
+                                ),
+                              ),
+                              SizedBox(height: 20,),
+                              Align(
+                                alignment: Alignment.center,
+                                child: Container(
+                                  width: 54,
+                                  height: 54,
+                                  // alignment: Alignment.bottomRight,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                                    border: Border.all(color: Color(0xFF16171a),width: 3,)
+                                  ),
+                                    child: IconButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            _iconColor = Color(0xFFf2f2fa);
+                                          });
+
+                                          Hive.box(FAVOURITES_BOX).putAll(reposInfo as Map);
+
+                                        },
+                                        icon: Icon(Icons.favorite_border_rounded,
+                                          color: _iconColor,
+                                          size: 28,
+                                        ),
+                                    ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),

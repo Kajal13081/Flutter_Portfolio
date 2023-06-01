@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio_app/dashboard.dart';
+import 'package:portfolio_app/favouritesRepo.dart';
 import 'package:portfolio_app/main.dart';
 import 'package:portfolio_app/repos_webview.dart';
 import 'package:portfolio_app/user_details_screen.dart';
@@ -18,6 +19,8 @@ class AppRoutes{
         return _buildRoute(Example(), settings);
       case user_details:
         return _buildRoute(UserDetailScreen(), settings);
+      case user_details:
+        return _buildRoute(FavouriteRepos(), settings);
       case web_view:
         return _buildRoute(ReposWebView(), settings);
 
