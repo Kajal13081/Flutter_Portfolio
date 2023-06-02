@@ -307,14 +307,12 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                                     border: Border.all(color: Color(0xFF16171a),width: 3,)
                                   ),
                                     child: IconButton(
-                                        onPressed: () {
-                                          setState(() {
-                                            _iconColor = Color(0xFFf2f2fa);
-                                          });
-
-                                          Hive.box(FAVOURITES_BOX).putAll(reposInfo as Map);
-
-                                        },
+                                    onPressed: () async {
+                                      addStringsToList(item);
+                                        setState(() {
+                                          _iconColor = const Color(0xFFf2f2fa);
+                                        });
+                                      },
                                         icon: Icon(Icons.favorite_border_rounded,
                                           color: _iconColor,
                                           size: 28,
@@ -341,5 +339,15 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
 
 
     ));
+  }
+  Future<void> addStringsToList(item) async {
+    final box = await Hive.openBox(favourites_box);
+    final List existingList = box.get('myList', defaultValue: []);
+
+    // Add more strings to the existing list
+    existingList.add({"bookmark": item.html_url, "name": item.name});
+
+    // Save the updated list back to Hive
+    box.put('myList', existingList);
   }
 }

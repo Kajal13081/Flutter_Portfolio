@@ -33,10 +33,11 @@ class FavouriteRepos extends StatelessWidget{
                   padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
                   child: Text(
                     'Favourite Repositories'.toUpperCase(),
+                    textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Color(0xFFf2f2fa),
                       fontWeight: FontWeight.bold,
-                      fontSize: 30,
+                      fontSize: 25,
                       fontStyle: FontStyle.normal,
                     ),
                   ),
@@ -45,96 +46,121 @@ class FavouriteRepos extends StatelessWidget{
             ),
 
           body: ValueListenableBuilder(
-            valueListenable: Hive.box(FAVOURITES_BOX).listenable(),
-            builder: (context, box, child){
-              List reposInfo = List.from(box.values);
-              return Expanded(
-                child: GridView.count(
-                  crossAxisCount: 2,
-                  // mainAxisSpacing: 20,
-                  // crossAxisSpacing: 20,
-                  children: reposInfo.map((item) {
-                    return GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(
+            valueListenable: Hive.box(favourites_box).listenable(),
+            builder: (context, box, child) {
+              List<dynamic> reposInfo = List.from(box.values);
+              return SizedBox(
+                  height: 500,
+                  child: reposInfo.isNotEmpty && reposInfo[0].isNotEmpty
+                      ? GridView.count(
+                    crossAxisCount: 2,
+                    children: reposInfo[0].map<Widget>((entry) {
+                      final item = entry;
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(
                             context,
                             AppRoutes.web_view,
-                            arguments: item.html_url
-                        );
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(12.0)),
-                        ),
-                        child: Card(
-                          elevation: 10,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12.0),
+                            arguments: item['html_url'],
+                          );
+                        },
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            borderRadius:
+                            BorderRadius.all(Radius.circular(12.0)),
                           ),
-                          color: Color(0xFF232336),
-                          margin: EdgeInsets.symmetric(
-                              vertical: 10, horizontal: 20),
-                          child: Padding(
-                            padding: const EdgeInsets.fromLTRB(10, 15, 10, 0),
-                            child: Center(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Center(
-                                    child: Text(item.name,
-                                      textAlign: TextAlign.center,
-                                      // overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                        color: Color(0xFFf2f2fa),
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 18,
-                                        height: 1.3,
-                                        fontStyle: FontStyle.normal,
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(height: 20,),
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: Container(
-                                      width: 54,
-                                      height: 54,
-                                      // alignment: Alignment.bottomRight,
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.all(Radius.circular(12.0)),
-                                          border: Border.all(color: Color(0xFF16171a),width: 3,)
-                                      ),
-                                      child: IconButton(
-                                        onPressed: () {
-                                          // setState(() {
-                                          //   _iconColor = Color(0xFFf2f2fa);
-                                          // }
-
-
-                                        },
-                                        icon: Icon(Icons.favorite_border_rounded,
-                                          color: _iconColor,
-                                          size: 28,
+                          child: Card(
+                            elevation: 10,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12.0),
+                            ),
+                            color: const Color(0xFF232336),
+                            margin: const EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 20),
+                            child: Padding(
+                              padding:
+                              const EdgeInsets.fromLTRB(10, 15, 10, 0),
+                              child: Center(
+                                child: Column(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.center,
+                                  crossAxisAlignment:
+                                  CrossAxisAlignment.center,
+                                  children: [
+                                    Center(
+                                      child: Text(
+                                        item['name'],
+                                        textAlign: TextAlign.center,
+                                        style: const TextStyle(
+                                          color: Color(0xFFf2f2fa),
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 18,
+                                          height: 1.3,
+                                          fontStyle: FontStyle.normal,
                                         ),
                                       ),
                                     ),
-                                  ),
-                                ],
+                                    const SizedBox(
+                                      height: 20,
+                                    ),
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: Container(
+                                        width: 54,
+                                        height: 54,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                          const BorderRadius.all(
+                                            Radius.circular(12.0),
+                                          ),
+                                          border: Border.all(
+                                            color: const Color(0xFF16171a),
+                                            width: 3,
+                                          ),
+                                        ),
+                                        child: IconButton(
+                                          onPressed: () {
+                                            remove(item);
+                                          },
+                                          icon: Icon(
+                                            Icons.favorite_border_rounded,
+                                            color: _iconColor,
+                                            size: 28,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
                         ),
-
-                      ),
-                    );
-                  }).toList(),
-                ),
-              );
+                      );
+                    }).toList(),
+                  )
+                      : const Center(
+                         child: Text(
+                              "No Favourite Repositories",
+                      style: TextStyle(color: Color(0xFFf2f2fa),
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold),
+                    ),
+                  ));
             },
           ),
 
     ));
+  }
+  Future<void> remove(item) async {
+    final box = await Hive.openBox(favourites_box);
+    final List existingList = box.get('myList', defaultValue: []);
+
+    // Add more strings to the existing list
+    existingList.remove(item);
+
+    // Save the updated list back to Hive
+    box.put('myList', existingList);
   }
   
 }

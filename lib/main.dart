@@ -12,13 +12,13 @@ import 'package:portfolio_app/user_details_screen.dart';
 import 'package:portfolio_app/work.dart';
 import 'package:provider/provider.dart';
 
-const String FAVOURITES_BOX = "favourites_box";
+const String favourites_box = "favourites_box";
 
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
-  await Hive.openBox(FAVOURITES_BOX);
+  await Hive.openBox(favourites_box);
   runApp(MyApp());
 }
 
@@ -126,11 +126,11 @@ class _ExampleState extends State<Example> {
                     //
                     // }
                   ),
-                  GButton(icon: Icons.star,
+                  GButton(icon: Icons.bookmark,
                     iconColor: Color(0xFFd5d5e0),
                     iconActiveColor: Color(0xFF9d62d9),
                     iconSize: 24,
-                    text: 'Achievements',
+                    text: 'Favourites',
                     textColor: Color(0xFF9d62d9),
                     // onPressed: (){
                     //   Navigator.push(context, MaterialPageRoute(builder: (context) => WorkExperience()));
