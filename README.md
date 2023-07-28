@@ -18,16 +18,15 @@ Welcome to the Developer Portfolio App! This project is an Android application d
       <td width="1%"><img src="https://github.com/Kajal13081/Flutter_Portfolio/assets/80222700/b613875c-29ca-4988-a8f4-81efc3e16f66"/></td>
       <td width="1%"><img src="https://github.com/Kajal13081/Flutter_Portfolio/assets/80222700/7bc9a273-4bbb-4176-adbe-3d368e52e112"/></td>
        <td width="1%"><img src="https://github.com/Kajal13081/Flutter_Portfolio/assets/80222700/047ab0e3-6a3a-41d2-aaf9-f5c0d2e1b6a9"/></td>
-    </tr>
-    <tr>
-      <td width="1%"><img src="https://github.com/Kajal13081/Flutter_Portfolio/assets/80222700/580642fe-a4d9-4620-b1f3-44f96a5dfcba"/></td>
+       <td width="1%"><img src="https://github.com/Kajal13081/Flutter_Portfolio/assets/80222700/580642fe-a4d9-4620-b1f3-44f96a5dfcba"/></td>
       <td width="1%"><img src="https://github.com/Kajal13081/Flutter_Portfolio/assets/80222700/b382ab1e-652d-4c0f-9ffc-950f850f56b9"/></td>
-       <td width="1%"><img src="https://github.com/Kajal13081/Flutter_Portfolio/assets/80222700/472bbfa3-cdd7-4ed2-ae0c-afa2dabf8c09"/></td>
     </tr>
     <tr>
+       <td width="1%"><img src="https://github.com/Kajal13081/Flutter_Portfolio/assets/80222700/472bbfa3-cdd7-4ed2-ae0c-afa2dabf8c09"/></td>
       <td width="1%"><img src="https://github.com/Kajal13081/Flutter_Portfolio/assets/80222700/05f23772-186c-4912-991a-f771c9184442"/></td>
       <td width="1%"><img src="https://github.com/Kajal13081/Flutter_Portfolio/assets/80222700/992f71b9-9d40-44d4-9a93-ff3f867c55c9"/></td>
-       <td width="1%"><img src="https://github.com/Kajal13081/Flutter_Portfolio/assets/80222700/c2e2bfc1-9cfe-4e3f-b8c1-3499edcb8f74"/></td>
+      <td width="1%"><img src="https://github.com/Kajal13081/Flutter_Portfolio/assets/80222700/c2e2bfc1-9cfe-4e3f-b8c1-3499edcb8f74"/></td>
+      <td width="1%"><img src="https://github.com/Kajal13081/Flutter_Portfolio/assets/80222700/20720dbe-d501-4dbb-9f6f-205334f431c6"/></td>
     </tr>
   </tbody>
 </table>
